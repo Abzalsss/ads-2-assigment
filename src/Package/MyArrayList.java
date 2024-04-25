@@ -2,23 +2,20 @@ package Package;
 
 import java.util.Iterator;
 
-public  class MyArrayList<T> implements MyList<T> {
-    private Object[] arr;
+public class MyArrayList<T> implements MyList<T> {
+    private T[] arr;
     private int size;
     private int capacity;
-    private int defaultCapacity;
 
 
     public MyArrayList(){
         arr = (T[]) new Object[5];
-        defaultCapacity = 5;
         capacity = 5;
         size = 0;
     }
 
     public MyArrayList(int capacity){
         arr = (T[]) new Object[capacity];
-        defaultCapacity = capacity;
         this.capacity = capacity;
         size = 0;
     }
@@ -30,6 +27,15 @@ public  class MyArrayList<T> implements MyList<T> {
             increaseBuffer();
         }
         arr[size++] = item;
+    }
+
+    private void increaseBuffer(){
+        capacity = size*2;
+        Object[] newArray = (T[]) new Object[capacity];
+        for(int i=0;i<size;i++){
+            newArray[i] = arr[i];
+        }
+        arr = (T[]) newArray;
     }
 
 
@@ -131,7 +137,7 @@ public  class MyArrayList<T> implements MyList<T> {
 
     @Override
     public Object[] toArray() {
-        Object[] newArray = (T[]) new Object[defaultCapacity];
+        Object[] newArray = (T[]) new Object[capacity];
         for(int i=0;i<size;i++){
             newArray[i] = arr[i];
         }
@@ -140,7 +146,7 @@ public  class MyArrayList<T> implements MyList<T> {
 
     @Override
     public void clear() {
-        T[] newArray = (T[]) new Object[defaultCapacity];
+        T[] newArray = (T[]) new Object[capacity];
         arr = newArray;
     }
 
@@ -161,14 +167,6 @@ public  class MyArrayList<T> implements MyList<T> {
         }
     }
 
-    private void increaseBuffer(){
-        capacity = size*2;
-        Object[] newArray = (T[]) new Object[capacity];
-        for(int i=0;i<size;i++){
-            newArray[i] = arr[i];
-        }
-        arr = newArray;
-    }
 
 
     @Override
