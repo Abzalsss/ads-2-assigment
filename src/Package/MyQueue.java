@@ -1,54 +1,84 @@
 package Package;
 
-public class MyQueue<T> {
+import java.util.NoSuchElementException;
 
+public class MyQueue<T> {
     private Node<T> first;
     private Node<T> last;
+    private int size;
+    MyLinkedList<Object> arr = new MyLinkedList<>();
 
-    public boolean empty() {
-        return first == null;
-    }
+    private static class Node<T> {
+        T item;
+        Node<T> next;
 
-    public int size() {
-        int count = 0;
-        Node<T> current = first;
-        while (current != null) {
-            count++;
-            current = current.next;
+        Node(T item) {
+            this.item = item;
+            this.next = null;
         }
-        return count;
     }
 
-    public T peek() {
-        return first.value;
+    public MyQueue() {
+        first = null;
+        last = null;
+        size = 0;
     }
 
-    public void enqueue(T item) {
-        Node<T> newNode = new Node<>(item);
-        if (last == null) {
+    public void add(T element) {
+        Node<T> newNode = new Node<>(element);
+        if (isEmpty()) {
             first = newNode;
-            last = newNode;
         } else {
             last.next = newNode;
-            last = newNode;
         }
+        last = newNode;
+        size++;
     }
 
-    public T dequeue() {
-        T value = first.value;
+    public T removeFirst() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("empty");
+        }
+        T item = first.item;
         first = first.next;
         if (first == null) {
             last = null;
         }
-        return value;
+        size--;
+        return item;
     }
 
-    private static class Node<E> {
-        private E value;
-        private Node<E> next;
-
-        public Node(E value) {
-            this.value = value;
+    public T getFirst() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("empty");
         }
+        return first.item;
+    }
+
+    public void addLast(T item) {
+        arr.add(item);
+    }
+
+    public T removeLast() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("empty");
+        }
+        T item = last.item;
+        Node<T> current = first;
+        while (current.next != last) {
+            current = current.next;
+        }
+        last = current;
+        last.next = null;
+        size--;
+        return item;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
     }
 }

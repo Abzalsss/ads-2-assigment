@@ -4,7 +4,6 @@ import java.util.Iterator;
 
 public class MyLinkedList<T> implements MyList<T> {
     private Node<T> head;
-
     private Node<T> tail;
     private int size;
 

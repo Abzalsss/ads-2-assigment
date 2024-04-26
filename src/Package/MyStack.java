@@ -4,6 +4,7 @@ public class MyStack<T> {
 
     private Object[] item;
     private int top = 0;
+    MyLinkedList<Object> arr = new MyLinkedList<>();
 
     public MyStack() {
         item = new Object[10];
