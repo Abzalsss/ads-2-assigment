@@ -18,7 +18,7 @@ public class Main {
         arr.removeFirst();
         arr.removeLast();
         arr.remove(0);
-        System.out.println(arr.sort());
+        //System.out.println(arr.sort());
         //System.out.println(arr.indexOf());
         //arr.lastIndexOf();
 
